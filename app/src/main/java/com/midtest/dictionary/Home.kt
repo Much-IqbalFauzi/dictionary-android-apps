@@ -23,9 +23,9 @@ class Home : Activity() {
 
     fun ViewPagerData() {
         val allMenu = ArrayList<Menu>()
-        allMenu.add(Menu(R.drawable.img_translate, title="Translate", desc="Translate words from one language to another"))
-        allMenu.add(Menu(R.drawable.img_history, title="History", desc="Beautiful journey from translation word by word in your life story"))
-        allMenu.add(Menu(R.drawable.img_profile, title="Profile", desc="See a wonderful user account in this apps"))
+        allMenu.add(Menu(R.drawable.ic_translate, title="Translate", desc="Translate words from one language to another"))
+        allMenu.add(Menu(R.drawable.ic_sand, title="History", desc="Beautiful journey from translation word by word in your life story"))
+        allMenu.add(Menu(R.drawable.ic_prof, title="Profile", desc="See a wonderful user account in this apps"))
 
         viewPager = findViewById(R.id.home_viewpager)
         val viewPagerAdapter = ViewPagerAdapter(allMenu, this)
