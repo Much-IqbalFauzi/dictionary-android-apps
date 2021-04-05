@@ -14,10 +14,17 @@ import com.midtest.dictionary.model.Menu
 class Home : Activity() {
     private lateinit var viewPager: ViewPager
     private lateinit var readPage: Button
+    private lateinit var username: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+        username = intent.getStringExtra("username").toString()
         readPage = findViewById(R.id.home_readmore)
+        readPage.setOnClickListener(View.OnClickListener {
+            val intent = Intent(this@Home, Translate::class.java)
+            intent.putExtra("username", username)
+            startActivity(intent)
+        })
         ViewPagerData()
     }
 
@@ -41,26 +48,31 @@ class Home : Activity() {
                     0 -> {
                         readPage.text = "Lets Translate"
                         readPage.setOnClickListener(View.OnClickListener {
-                            startActivity(Intent(this@Home, Translate::class.java))
+                            val intent = Intent(this@Home, Translate::class.java)
+                            intent.putExtra("username", username)
+                            startActivity(intent)
                         })
                     }
                     1 -> {
                         readPage.text = "See History"
                         readPage.setOnClickListener(View.OnClickListener {
-                            startActivity(Intent(this@Home, HistoryTranslate::class.java))
+                            val intent = Intent(this@Home, HistoryTranslate::class.java)
+                            intent.putExtra("username", username)
+                            startActivity(intent)
                         })
                     }
                     2 -> {
                         readPage.text = "Jump to Profile"
                         readPage.setOnClickListener(View.OnClickListener {
-                            startActivity(Intent(this@Home, UserDetail::class.java))
+                            val intent = Intent(this@Home, UserDetail::class.java)
+                            intent.putExtra("username", username)
+                            startActivity(intent)
                         })
                     }
                 }
             }
         }
         viewPager.addOnPageChangeListener(viewPagerPageChangeListener)
-
     }
 
 }

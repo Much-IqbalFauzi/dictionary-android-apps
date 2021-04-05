@@ -9,6 +9,9 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import com.google.gson.GsonBuilder
+import com.midtest.dictionary.model.LoggedInUser
+import com.midtest.dictionary.model.LoggedUser
+import com.midtest.dictionary.model.UserData
 import com.midtest.dictionary.model.UserLogin
 import okhttp3.*
 import java.io.IOException
@@ -19,18 +22,15 @@ class Login : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        val username = findViewById<EditText>(R.id.login_username).toString()
-        val password = findViewById<EditText>(R.id.login_password).toString()
+        val username = findViewById<EditText>(R.id.login_username)
+        val password = findViewById<EditText>(R.id.login_password)
+
         findViewById<Button>(R.id.login_login).setOnClickListener(View.OnClickListener {
-            if (username.isEmpty() and password.isEmpty()) {
+
+            if (username.text.isEmpty() or password.text.isEmpty()) {
                 Toast.makeText(this, "Fill username and Password", Toast.LENGTH_LONG).show()
             } else {
-//                Toast.makeText(this, "$username $password ", Toast.LENGTH_LONG).show()
-                LoginCheck(username, password)
-                when(status) {
-                    "OK"-> startActivity(Intent(this@Login, Home::class.java))
-                    else -> Toast.makeText(this, "Login Fail", Toast.LENGTH_LONG).show()
-                }
+                LoginCheck(username.text.toString(), password.text.toString())
             }
         })
 
@@ -39,17 +39,29 @@ class Login : Activity() {
         })
     }
 
+    fun StatusCheck(status: String?, username: String?) {
+        when(status) {
+            "OK"-> {
+                val intentData = Intent(this@Login, Home::class.java)
+                intentData.putExtra("username", username)
+                startActivity(intentData)
+                finish()
+            }
+            else -> Toast.makeText(this, "Login Fail", Toast.LENGTH_LONG).show()
+        }
+    }
+
     fun LoginCheck(username: String, password: String) {
         val client = OkHttpClient()
         val mediaType = MediaType.parse("application/json")
         val body = RequestBody.create(
             mediaType,
-            "{\n    \"username\": \"$username\",\n    \"password\": \"$password\"\n }"
+            "{\"username\": \"$username\",\"password\": \"$password\"}"
         )
         val request = Request.Builder()
             .url("http://192.168.43.30:8089/user/login")
             .post(body)
-            .addHeader("content-type", "application/json")
+            .addHeader("Content-Type", "application/json")
             .build()
         client.newCall(request).enqueue(object: Callback {
             override fun onFailure(call: Call, e: IOException) {
@@ -62,10 +74,7 @@ class Login : Activity() {
                 val data = gson.fromJson(body, UserLogin::class.java)
 
                 this@Login.runOnUiThread {
-                    println("========================================================================")
-                    println(data.status)
-                    status = data.status
-
+                    StatusCheck(data.status, data.user.username)
                 }
             }
         })

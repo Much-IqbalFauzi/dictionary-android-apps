@@ -10,14 +10,15 @@ import com.midtest.dictionary.R
 import com.midtest.dictionary.databaseHandler.DatabaseHandler
 import com.midtest.dictionary.model.History
 
-class HistoryItemAdapter(context: Context): BaseAdapter() {
+class HistoryItemAdapter(context: Context, data: ArrayList<History>): BaseAdapter() {
     var allData: ArrayList<History> = ArrayList<History>()
     var konteks: Context
+
     init {
-        val databaseHandler: DatabaseHandler = DatabaseHandler(context)
-//        allData = databaseHandler.getAll()
+        allData = data
         konteks = context
     }
+
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         var convertView = convertView
         convertView = LayoutInflater.from(konteks).inflate(R.layout.history_item, parent, false)

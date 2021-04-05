@@ -69,7 +69,11 @@
         <GridView
             android:id="@+id/history_grid"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/size_8"/>
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/size_8"
+            android:horizontalSpacing="@dimen/size_6"
+            android:verticalSpacing="@dimen/size_8"
+            android:paddingVertical="@dimen/size_8"
+            android:paddingHorizontal="@dimen/size_6"/>
     </LinearLayout>
 </LinearLayout>

@@ -14,6 +14,7 @@
     <color name="stem">#aade87</color>
     <color name="antarctics">#3a3c42</color>
     <color name="dark_grey">#565656</color>
+    <color name="light_grey">#ccc</color>
 
     <color name="milk">#faf8f0</color>
     <color name="snow_mint">#cff5ea</color>
