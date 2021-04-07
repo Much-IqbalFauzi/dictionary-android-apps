@@ -30,7 +30,7 @@ class Home : Activity() {
 
     fun ViewPagerData() {
         val allMenu = ArrayList<Menu>()
-        allMenu.add(Menu(R.drawable.ic_translate, title="Translate", desc="Translate words from one language to another"))
+        allMenu.add(Menu(R.drawable.ic_i_trans, title="Translate", desc="Translate words from one language to another"))
         allMenu.add(Menu(R.drawable.ic_sand, title="History", desc="Beautiful journey from translation word by word in your life story"))
         allMenu.add(Menu(R.drawable.ic_prof, title="Profile", desc="See a wonderful user account in this apps"))
 
